@@ -33,6 +33,15 @@
         .reklam {
             margin: 25px 0;
             text-align: center;
+            min-height: 100px;
+            background: #f9f9f9;
+            padding: 10px;
+            border: 1px dashed #ddd;
+        }
+        .reklam-yukleniyor {
+            color: #999;
+            font-size: 12px;
+            padding: 20px;
         }
         footer {
             background: #222;
@@ -42,6 +51,34 @@
             font-size: 13px;
         }
     </style>
+    <script>
+        // Reklam yükleme kontrolü
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                var ads = document.querySelectorAll('.adsbygoogle');
+                ads.forEach(function(ad) {
+                    if (ad.offsetHeight === 0) {
+                        var container = ad.closest('.reklam');
+                        if (container) {
+                            var loadingMsg = container.querySelector('.reklam-yukleniyor');
+                            if (loadingMsg) {
+                                loadingMsg.textContent = 'Reklam yüklenemedi. Ad blocker kullanıyor olabilirsiniz veya AdSense hesabınız henüz onaylanmamış olabilir.';
+                                loadingMsg.style.color = '#ff6b6b';
+                            }
+                        }
+                    } else {
+                        var container = ad.closest('.reklam');
+                        if (container) {
+                            var loadingMsg = container.querySelector('.reklam-yukleniyor');
+                            if (loadingMsg) {
+                                loadingMsg.style.display = 'none';
+                            }
+                        }
+                    }
+                });
+            }, 3000);
+        });
+    </script>
 </head>
 
 <body>
@@ -56,6 +93,7 @@
     <!-- ÜST REKLAM -->
     <!-- https://nafiz42.github.io/reklams/ -->
     <div class="reklam">
+        <div class="reklam-yukleniyor">Reklam yükleniyor...</div>
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-8348892813982949"
